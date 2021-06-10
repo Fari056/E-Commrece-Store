@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">FSShop</string>
+    <string name="create_account" translatable="false">Create Account</string>
+    <string name="edit_dialog_ok" translatable="false" />
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="app_title" translatable="false">FS Electronics</string>
+    <string name="title_fs" translatable="false">FS</string>
+    <string name="title_fs2" translatable="false">Electronics</string>
+    <string name="ip6" translatable="false">Iphone 6</string>
+    <string name="prcIp6" translatable="false">Rs:40000</string>
+    <string name="sams10" translatable="false">Samsung S10</string>
+    <string name="prs10" translatable="false">Rs:120000</string>
+    <string name="ip11" translatable="false">Iphone11</string>
+    <string name="prIP11" translatable="false">Rs:2200000</string>
+    <string name="ip8" translatable="false">Iphone 8</string>
+    <string name="prIp8" translatable="false">Rs:60000</string>
+    <string name="mi10" translatable="false">MI10</string>
+    <string name="prMI10" translatable="false">Rs:75000</string>
+    <string name="Mi9p" translatable="false">MI9Pro</string>
+    <string name="prmi9" translatable="false">Rs:45000</string>
+    <string name="forget_ps" translatable="true">forget password?</string>
+    <string name="sign_in" translatable="false">sign in</string>
+    <string name="google_signin" translatable="false">sign in with google</string>
+    <string name="reg_btn_txt" translatable="false">Don\'t have an account? Sign Up</string>
+    <string name="full_name" translatable="false">Full Name</string>
+    <string name="user_name" translatable="false">User Name</string>
+    <string name="email" translatable="false">Email</string>
+    <string name="password" translatable="false">Password</string>
+    <string name="next" translatable="false">Next</string>
+    <string name="Radio_male" translatable="false">Male</string>
+    <string name="radio_female" translatable="false">Female</string>
+    <string name="radio_other" translatable="false">Other</string>
+    <string name="DOB" translatable="false">Date of Birth:</string>
+    <string name="ph_no" translatable="false">Phone Number</string>
+    <string name="finish" translatable="false">Finish</string>
+    <string name="gender" translatable="false">Gender</string>
+    <string name="splash_title" translatable="false">Fs Electronics</string>
+    <string name="splash_slogn" translatable="false">Believe in Technology</string>
+    <string name="Electronics" translatable="false">Electronics</string>
+    <string name="remember_me" translatable="false">Remember me</string>
+    <string name="hint_password" translatable="false">Password</string>
+    <string name="Text_enter_date" translatable="false">Date of Birth</string>
+    <string name="hi_message" translatable="false">Hi!!</string>
+    <string name="text_super" translatable="false">Super</string>
+    <string name="Trend_Title">What\'s hot</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="text_logout">Logout</string>
+
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_NewChat"
+        android:title="New Chat" />
+    <item
+        android:id="@+id/action_MarkRead"
+        android:title="Mark as Read" />
+    <item
+        android:id="@+id/action_MarkUnRead"
+        android:title="Mark as Unread" />
+
+</menu>
