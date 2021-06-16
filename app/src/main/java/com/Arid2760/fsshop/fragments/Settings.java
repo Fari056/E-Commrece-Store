@@ -3,6 +3,7 @@ package com.Arid2760.fsshop.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -42,6 +43,8 @@ public class Settings extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
         init(root);
+        BottomNavigationView navBar = getActivity().findViewById(R.id.bottomNav_view);
+        navBar.animate().translationY(200);
 
         try {
             helper = new DatabaseHelper(getActivity());
@@ -76,10 +79,14 @@ public class Settings extends Fragment {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                navBar.animate().translationY(0);
                 transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.fade_out);
-                transaction.replace(R.id.navHostFragment, new Home());
-                transaction.addToBackStack(null);
-                transaction.commit();
+                if (getFragmentManager().getBackStackEntryCount() != 0) {
+                    getFragmentManager().popBackStack();
+                }
+//                transaction.replace(R.id.navHostFragment, new Home());
+//                transaction.addToBackStack(null);
+//                transaction.commit();
             }
         });
 

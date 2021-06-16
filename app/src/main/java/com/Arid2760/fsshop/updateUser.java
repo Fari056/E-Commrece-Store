@@ -11,12 +11,13 @@ import android.widget.Toast;
 
 import com.Arid2760.fsshop.adminPenal.manage_users;
 import com.Arid2760.fsshop.gertterSetter.GetUserData;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class updateUser extends AppCompatActivity {
     EditText updateName, updateEmail, updateDOB, updatePhone;
     Button updateBtn;
     Button cancelBtn;
-//    private GetUserData data;
+    //    private GetUserData data;
     private int uId;
 
     @Override
@@ -39,7 +40,6 @@ public class updateUser extends AppCompatActivity {
                         newData.setUserDOB(updateDOB.getText().toString());
 
                         if (databaseHelper.updateUser(newData)) {
-
                             Intent in = new Intent(updateUser.this, Home_Page.class);
                             in.putExtra("data", newData);
                             startActivity(in);

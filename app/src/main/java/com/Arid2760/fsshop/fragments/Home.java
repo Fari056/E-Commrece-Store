@@ -25,6 +25,7 @@ import com.Arid2760.fsshop.R;
 import com.Arid2760.fsshop.adapters.SliderAdapter;
 import com.Arid2760.fsshop.gertterSetter.GetProductData;
 import com.Arid2760.fsshop.gertterSetter.SliderData;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
@@ -35,6 +36,12 @@ public class Home extends Fragment {
     GridView gridView;
     Toolbar toolbar;
     DatabaseHelper databaseHelper;
+    SliderView sliderView;
+
+    // Urls of our images.
+    String url1 = "https://www.indiewire.com/wp-content/uploads/2019/06/00_Best-TV-Posters-of-2019.jpg?w=780";
+    String url2 = "https://static-cse.canva.com/image/96812/posters.jpg";
+    String url3 = "https://i.pinimg.com/originals/bc/2d/d0/bc2dd09c456f394ede98fe956f2ad6d8.jpg";
 
 
     public Home() {
@@ -48,26 +55,16 @@ public class Home extends Fragment {
         init(root);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
-        String[] price = {"20000", "25000", "45000", "30000", "27000", "48000", "21000", "29000", "75000"};
-        int[] images = {R.drawable.ip6s, R.drawable.ip11, R.drawable.ip_8, R.drawable.mi9pro, R.drawable.mi10,
-                R.drawable.samsungs10, R.drawable.mi9pro, R.drawable.ip_8, R.drawable.samsungs10};
-        String[] name = {"Iphone", "Iphone", "Iphone", "REDMI", "MI", "Samsung", "REDMI", "Iphone", "Samsung"};
-
-
         //Image Slider Start
-        // Urls of our images.
-        String url1 = "https://blog.daraz.pk/wp-content/uploads/2021/05/GET-READY-DFW-BANNER-1.jpg";
-        String url2 = "https://blog.daraz.pk/wp-content/uploads/2021/02/BANNER-copy-3.png";
-        String url3 = "https://bizzbucket.co/wp-content/uploads/2020/08/Life-in-The-Metro-Blog-Title-22.png";
+
         // initializing the slider view.
-        SliderView sliderView = root.findViewById(R.id.slider);
+
         // adding the urls inside array list
         sliderDataArrayList.add(new SliderData(url1));
         sliderDataArrayList.add(new SliderData(url2));
         sliderDataArrayList.add(new SliderData(url3));
         // passing this array list inside our adapter class.
         SliderAdapter adapter = new SliderAdapter(getActivity(), sliderDataArrayList);
-        // below method is used to set auto cycle direction in left to
         // right direction you can change according to requirement.
         sliderView.getAutoCycleDirection();
         // below method is used to
@@ -91,13 +88,25 @@ public class Home extends Fragment {
         pList = databaseHelper.getAllProduct();
         GridViewAdapter adapter1 = new GridViewAdapter(getActivity(), R.layout.item_card, pList);
         gridView.setAdapter(adapter1);
+
+//        Fragment newFragment;
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 GetProductData currentRow = (GetProductData) parent.getItemAtPosition(position);
                 String currentId = String.valueOf(currentRow.getId());
-                Toast.makeText(getContext(), "You Clicked " + currentId, Toast.LENGTH_SHORT).show();
+
+                product_details frg = new product_details();
+                transaction.replace(R.id.navHostFragment, frg);
+                Bundle bundle = new Bundle();
+                bundle.putString("CPid", currentId);
+                frg.setArguments(bundle);
+                transaction.addToBackStack(null);
+                transaction.commit();
+
+//                Toast.makeText(getContext(), "You Clicked " + currentId, Toast.LENGTH_SHORT).show();
             }
         });
         // GridView in Home end
@@ -106,6 +115,7 @@ public class Home extends Fragment {
 
     void init(View view) {
         toolbar = view.findViewById(R.id.toolbar);
+        sliderView = view.findViewById(R.id.slider);
     }
 
     @Override

@@ -30,6 +30,7 @@ import com.Arid2760.fsshop.adapters.GridViewAdapter;
 import com.Arid2760.fsshop.adapters.ListViewAdapter;
 import com.Arid2760.fsshop.adminPenal.manage_Products;
 import com.Arid2760.fsshop.gertterSetter.GetProductData;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.w3c.dom.Text;
 
@@ -52,13 +53,20 @@ public class Search extends Fragment {
         View root = inflater.inflate(R.layout.fragment_search, container, false);
         init(root);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        BottomNavigationView navBar = getActivity().findViewById(R.id.bottomNav_view);
+        navBar.animate().translationY(200);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                navBar.animate().translationY(0);
                 transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.fade_out);
-                transaction.replace(R.id.navHostFragment, new Home());
-                transaction.addToBackStack(null);
-                transaction.commit();
+                if (getFragmentManager().getBackStackEntryCount() != 0) {
+                    getFragmentManager().popBackStack();
+                }
+
+//                transaction.replace(R.id.navHostFragment, new Home());
+//                transaction.addToBackStack(null);
+//                transaction.commit();
             }
         });
         searchBtn.setOnClickListener(new View.OnClickListener() {
@@ -97,8 +105,13 @@ public class Search extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 GetProductData CurrentRow = (GetProductData) parent.getItemAtPosition(position);
                 String currentId = String.valueOf(CurrentRow.getId());
-
-                Toast.makeText(getContext(), "u Clicked on Id: " + currentId, Toast.LENGTH_SHORT).show();
+                product_details frg = new product_details();
+                transaction.replace(R.id.navHostFragment, frg);
+                Bundle bundle = new Bundle();
+                bundle.putString("CPid", currentId);
+                frg.setArguments(bundle);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 

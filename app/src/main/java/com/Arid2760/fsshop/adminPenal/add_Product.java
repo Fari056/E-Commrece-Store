@@ -122,8 +122,8 @@ public class add_Product extends AppCompatActivity {
         pData.setImageBitmap(bitmap);
         if (databaseHelper.insertProduct(pData)) {
             Toast.makeText(getApplicationContext(), "Added", Toast.LENGTH_LONG).show();
-//            Intent i = new Intent(getApplicationContext(), manage_Products.class);
-//            startActivity(i);
+            Intent i = new Intent(getApplicationContext(), manage_Products.class);
+            startActivity(i);
         }
     }
 

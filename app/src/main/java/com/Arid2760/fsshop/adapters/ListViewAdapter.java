@@ -68,9 +68,7 @@ public class ListViewAdapter extends ArrayAdapter<GetProductData> {
                 tt4.setText(p.getDescription());
             }
         }
-
         return v;
     }
-
 }
 

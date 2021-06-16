@@ -22,7 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 
 public class Home_Page extends AppCompatActivity {
-//    Toolbar toolbar;
+    //    Toolbar toolbar;
     SessionManagement sessionManagement;
     boolean isLoggedIn;
 
@@ -52,37 +52,14 @@ public class Home_Page extends AppCompatActivity {
     }
 
     void init() {
-//        toolbar = findViewById(R.id.toolbar);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.top_menu, menu);
-//        return true;
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        int id = item.getItemId();
-//
-//        if (id == R.id.action_settings) {
-//
-//            Intent in = new Intent(getApplicationContext(), Settings.class);
-//            startActivity(in);
-//        }
-//        if (id == R.id.action_profile) {
-//
-//        }
-//        if (id == R.id.action_search) {
-//            Intent in = new Intent(getApplicationContext(), Search.class);
-//            startActivity(in);
-//        }
-//        return true;
-//    }
 
     boolean doubleBackToExitPressedOnce = false;
 
-    @Override
+
+
+        @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed();

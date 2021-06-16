@@ -33,7 +33,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-//        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         db.execSQL("CREATE TABLE IF NOT EXISTS " + table_name + "( userId INTEGER PRIMARY KEY AUTOINCREMENT,userName VARCHAR,userEmail VARCHAR,userPassword VARCHAR,userPhone VARCHAR,userDOB VARCHAR,userGender VARCHAR)");
         db.execSQL("CREATE TABLE IF NOT EXISTS " + Item_table + "( prodId INTEGER PRIMARY KEY AUTOINCREMENT,prodName VARCHAR,prodPrice INTEGER,prodDescription VARCHAR,prodImage BLOB)");
     }
@@ -326,6 +325,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         return wordList;
+    }
+
+    public GetProductData getSelectedProduct(String id) {
+
+        GetProductData data;
+        data = new GetProductData();
+
+        String selectQuery = "SELECT  * FROM " + Item_table + " where prodId= '" + id + "'";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+//                GetProductData data = new GetProductData();
+                data.setId(cursor.getInt(0));
+                data.setName(cursor.getString(1));
+                data.setPrice(cursor.getString(2));
+                data.setDescription(cursor.getString(3));
+                byte[] imageByte = cursor.getBlob(4);
+                Bitmap image = BitmapFactory.decodeByteArray(imageByte, 0, imageByte.length);
+                data.setImageBitmap(image);
+//                wordList.add(data);
+            } while (cursor.moveToNext());
+        }
+        return data;
     }
     //Product Data End
 }

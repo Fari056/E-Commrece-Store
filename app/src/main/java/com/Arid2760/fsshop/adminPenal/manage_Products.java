@@ -2,14 +2,15 @@ package com.Arid2760.fsshop.adminPenal;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ListAdapter;
 
+import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class manage_Products extends AppCompatActivity {
+public class manage_Products extends ListActivity {
     Intent in;
     ListView listView;
     ImageButton addProd;
@@ -41,16 +42,12 @@ public class manage_Products extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(this);
         List<GetProductData> pList = new ArrayList<>();
         pList = databaseHelper.getAllProduct();
+        listView = getListView();
 
         if (pList.size() != 0) {
             ListViewAdapter customAdapter = new ListViewAdapter(this, R.layout.product_view_admin, pList);
 
             listView.setAdapter(customAdapter);
-
-//            ListAdapter adapter = new SimpleAdapter(manage_Products.this, pList, R.layout.product_view_admin, new String[]
-//                    {"prodId", "prodName", "prodPrice", "prodDescription"},
-//                    new int[]{R.id.prodId, R.id.prodName1, R.id.prodPrice1, R.id.prodDesc1});
-//            listView.setAdapter(adapter);
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -67,6 +64,7 @@ public class manage_Products extends AppCompatActivity {
             listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    final int pos = position;
                     final GetProductData item = (GetProductData) parent.getItemAtPosition(position);
                     String Id = String.valueOf(item.getId());
                     AlertDialog.Builder builder = new AlertDialog.Builder(manage_Products.this);
@@ -78,10 +76,12 @@ public class manage_Products extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             DatabaseHelper helper = new DatabaseHelper(getApplicationContext());
                             helper.deleteProduct(Id);
+                            customAdapter.notifyDataSetChanged();
+                            startActivity(new Intent(getApplicationContext(), manage_Products.class));
+
                         }
                     });
                     builder.setNegativeButton("No", null);
-
                     builder.show();
                     return true;
                 }
@@ -98,7 +98,7 @@ public class manage_Products extends AppCompatActivity {
     }
 
     void init() {
-        listView = (ListView) findViewById(R.id.list);
+//        listView = (ListView) findViewById(R.id.list);
         addProd = (ImageButton) findViewById(R.id.addBtn);
     }
 }

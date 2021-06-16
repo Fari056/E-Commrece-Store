@@ -55,7 +55,7 @@
             android:fontFamily="@font/cairo"
             android:gravity="center_horizontal"
             android:text="@string/Trend_Title"
-            android:textColor="@color/red"
+            android:textColor="@color/orange_500"
             android:textSize="24sp" />
 
         <GridView
@@ -65,6 +65,7 @@
             android:layout_below="@+id/text"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+            android:layout_marginBottom="55dp"
             android:gravity="center_horizontal|center_vertical"
             android:numColumns="2" />
     </RelativeLayout>
