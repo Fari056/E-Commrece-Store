@@ -1,4 +1,4 @@
-package com.Arid2760.fsshop;
+ package com.Arid2760.fsshop;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,11 +54,7 @@ public class Home_Page extends AppCompatActivity {
     void init() {
     }
 
-
     boolean doubleBackToExitPressedOnce = false;
-
-
-
         @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {

@@ -13,6 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FSShop">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAsKMH1LYVARHjpmP9MC7ys1p1OeUh6y7E" />
+
         <activity android:name=".adminPenal.update_User_admin"></activity>
         <activity android:name=".adminPenal.manage_users" />
         <activity android:name=".adminPenal.manage_Products" />

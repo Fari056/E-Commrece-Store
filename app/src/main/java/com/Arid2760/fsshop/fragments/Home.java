@@ -1,6 +1,5 @@
 package com.Arid2760.fsshop.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,13 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.Arid2760.fsshop.DatabaseHelper;
@@ -25,7 +22,6 @@ import com.Arid2760.fsshop.R;
 import com.Arid2760.fsshop.adapters.SliderAdapter;
 import com.Arid2760.fsshop.gertterSetter.GetProductData;
 import com.Arid2760.fsshop.gertterSetter.SliderData;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
@@ -103,7 +99,7 @@ public class Home extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("CPid", currentId);
                 frg.setArguments(bundle);
-                transaction.addToBackStack(null);
+//                transaction.addToBackStack(null);
                 transaction.commit();
 
 //                Toast.makeText(getContext(), "You Clicked " + currentId, Toast.LENGTH_SHORT).show();

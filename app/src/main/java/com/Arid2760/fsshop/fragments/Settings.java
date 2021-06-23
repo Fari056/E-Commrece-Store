@@ -32,7 +32,7 @@ import java.util.ArrayList;
 public class Settings extends Fragment {
 
     private String newId;
-    TextView updateProfile;
+    TextView updateProfile, contact_us;
     ImageButton backBtn;
     SessionManagement sessionManagement;
     DatabaseHelper helper;
@@ -90,12 +90,21 @@ public class Settings extends Fragment {
             }
         });
 
+        contact_us.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                transaction.replace(R.id.navHostFragment, new contact_us());
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
         return root;
     }
 
     void init(View view) {
-        updateProfile = (TextView) view.findViewById(R.id.updateProfile);
         backBtn = view.findViewById(R.id.backBtn);
+        updateProfile = (TextView) view.findViewById(R.id.updateProfile);
+        contact_us = (TextView) view.findViewById(R.id.contact);
     }
 
 }

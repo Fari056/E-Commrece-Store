@@ -39,5 +39,10 @@
         android:name="com.Arid2760.fsshop.fragments.Search"
         android:label="Settings"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/action_contact"
+        android:name="com.Arid2760.fsshop.fragments.contact_us"
+        android:label="ContactUs"
+        tools:layout="@layout/fragment_contact_us" />
 
 </navigation>

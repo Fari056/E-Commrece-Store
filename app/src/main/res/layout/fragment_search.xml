@@ -25,12 +25,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:layout_marginTop="3dp"
-            android:layout_toRightOf="@+id/backBtn"
+            android:layout_toEndOf="@+id/backBtn"
             android:background="#000000ff"
             android:ems="15"
-            android:hint="Search in FS Electronics "
+            android:hint="@string/search_hint"
             android:padding="10dp"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
 
         <ImageButton
             android:id="@+id/searchBtn"

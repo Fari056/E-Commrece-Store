@@ -46,4 +46,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 // dependancy for loading image from url
     implementation 'com.github.bumptech.glide:glide:4.11.0'
+    // google map dep
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
 }

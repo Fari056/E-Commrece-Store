@@ -41,7 +41,6 @@ public class login extends AppCompatActivity {
         setup();
         login();
         register();
-        getData();
     }
 
     void register() {
@@ -104,44 +103,5 @@ public class login extends AppCompatActivity {
         superBtn = findViewById(R.id.superBtn);
     }
 
-// sharedPreferences Started
 
-    @Override
-    protected void onPause() {
-        if (checkBox.isChecked()) {
-            saveData();
-        } else {
-            SharedPreferences settings = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-            settings.edit().clear().apply();
-            checkBox.setChecked(false);
-        }
-        super.onPause();
-    }
-
-    void saveData() {
-        sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-//        eml = email.getText().toString();
-//        pass = password.getText().toString();
-        check = checkBox.isChecked(); //simplify if statement form -> if (check.isChecked()) {  chk = true; } else { chk = false; }
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putString(User, eml);
-//        editor.putString("pass", pass);
-        editor.putBoolean("isCheck", check);
-        editor.apply();
-    }
-
-    void getData() {
-        sharedPreferences = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
-//        eml = sharedPreferences.getString(User, null);
-//        pass = sharedPreferences.getString("pass", null);
-        check = sharedPreferences.getBoolean("isCheck", false);
-//        email.setText(eml);
-//        password.setText(pass);
-        if (check == true) {
-            checkBox.setChecked(true);
-        } else {
-            checkBox.setChecked(false);
-        }
-    }
-    //sharedPreferences ended
 }

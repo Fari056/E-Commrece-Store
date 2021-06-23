@@ -61,5 +61,6 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="text_logout">Logout</string>
+    <string name="search_hint">Search in FS Electronics</string>
 
 </resources>
