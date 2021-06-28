@@ -35,6 +35,7 @@ public class product_details extends Fragment {
     int count1 = 1;
     String itemId;
     String totalPrice;
+    private String id;
 
 
     @Override
@@ -49,8 +50,8 @@ public class product_details extends Fragment {
 
         helper = new DatabaseHelper(getContext());
         BackToHome.bringToFront();
-        GetProductData d = new GetProductData();
-        String id = getArguments().getString("CPid");
+//        GetProductData d = new GetProductData();
+        id = getArguments().getString("CPid");
 //        Toast.makeText(getContext(), id, Toast.LENGTH_SHORT).show();
         GetProductData data1 = new GetProductData();
         data1 = helper.getSelectedProduct(id);
@@ -114,6 +115,20 @@ public class product_details extends Fragment {
             public void onClick(View v) {
                 requireActivity().getSharedPreferences("add_to_cart", Context.MODE_PRIVATE).edit().putString("itemId", itemId).apply();
                 requireActivity().getSharedPreferences("add_to_cart", Context.MODE_PRIVATE).edit().putString("totalPrice", totalPrice).apply();
+            }
+        });
+
+        buyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buyNow buyNow = new buyNow();
+                transaction.replace(R.id.navHostFragment, buyNow);
+                Bundle bundle = new Bundle();
+                bundle.putString("Cid", id);
+                bundle.putString("Price", totalPrice);
+                buyNow.setArguments(bundle);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 

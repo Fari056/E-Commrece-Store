@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="3sp"
             android:fontFamily="sans-serif-smallcaps"
-            android:text="Update"
+            android:text="@string/update"
             android:textColor="@color/black"
             android:textSize="30sp" />
 
@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-smallcaps"
-            android:text="Products"
+            android:text="@string/products"
             android:textColor="@color/orange_500"
             android:textSize="30sp" />
     </LinearLayout>
@@ -56,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:text="Product Name"
+                android:text="@string/txt_product_name"
                 android:textColor="@color/orange_500"
                 android:textSize="16dp" />
 
@@ -65,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#ffffff"
-                android:hint=" Enter Name"
+                android:hint="@string/enter_name"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -82,16 +82,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:text="Product Price"
+                android:text="@string/txt_product_price"
                 android:textColor="@color/orange_500"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/updateProdPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#FFFF"
-                android:hint=" Enter Price"
+                android:hint="@string/enter_price"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -108,9 +108,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:text="Description"
+                android:text="@string/description"
                 android:textColor="@color/orange_500"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/updateProdDesc"
@@ -137,14 +137,14 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="50dp"
                 android:background="@drawable/ic_custom_button"
-                android:text="update" />
+                android:text="@string/update" />
 
             <Button
                 android:id="@+id/cancelBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/ic_custom_button"
-                android:text="Cancel" />
+                android:text="@string/cancel" />
         </LinearLayout>
 
     </LinearLayout>

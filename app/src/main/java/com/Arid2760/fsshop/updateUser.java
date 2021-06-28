@@ -72,8 +72,8 @@ public class updateUser extends AppCompatActivity {
     void loadUserData() {
         Intent intent = getIntent();
         Bundle b = intent.getExtras();
-        GetUserData DataN = (GetUserData) b.getSerializable("NData");
-        uId = DataN.getId();
+        GetUserData DataN = (GetUserData) b.getSerializable("data");
+//        uId = DataN.getId();
         updateName.setText(DataN.getUserName());
         updateEmail.setText(DataN.getUserEmail());
         updateDOB.setText(DataN.getUserDOB());

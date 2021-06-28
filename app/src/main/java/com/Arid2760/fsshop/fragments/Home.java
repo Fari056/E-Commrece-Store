@@ -34,6 +34,7 @@ public class Home extends Fragment {
     DatabaseHelper databaseHelper;
     SliderView sliderView;
 
+
     // Urls of our images.
     String url1 = "https://www.indiewire.com/wp-content/uploads/2019/06/00_Best-TV-Posters-of-2019.jpg?w=780";
     String url2 = "https://static-cse.canva.com/image/96812/posters.jpg";
@@ -50,6 +51,7 @@ public class Home extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         init(root);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+
 
         //Image Slider Start
 
@@ -99,7 +101,7 @@ public class Home extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("CPid", currentId);
                 frg.setArguments(bundle);
-//                transaction.addToBackStack(null);
+                transaction.addToBackStack(null);
                 transaction.commit();
 
 //                Toast.makeText(getContext(), "You Clicked " + currentId, Toast.LENGTH_SHORT).show();
@@ -123,16 +125,8 @@ public class Home extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        Fragment newFragment;
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        if (id == R.id.action_settings) {
 
-            newFragment = new Settings();
-            transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-            transaction.replace(R.id.navHostFragment, newFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
-        }
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
         if (id == R.id.action_search) {
             transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.fade_out);
             transaction.replace(R.id.navHostFragment, new Search());

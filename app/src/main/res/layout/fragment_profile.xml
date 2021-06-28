@@ -10,16 +10,26 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="180dp"
         android:background="@drawable/profile_bg"
         android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#000000ff"
+            app:menu="@menu/profile_top_menu"
+            app:title="@string/txt_profile"
+            app:titleTextColor="@color/white" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/profileCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             app:cardCornerRadius="50dp">
 
             <ImageView
@@ -34,27 +44,53 @@
             android:id="@+id/currentUName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="27dp"
             android:layout_toEndOf="@+id/profileCard"
             android:fontFamily="@font/ubuntu_light"
             android:hint="User Name"
             android:textColor="@color/white"
-            android:textSize="22sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profileCard"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="120dp"
+                android:fontFamily="@font/julius_sans_one"
+                android:text="My Wishlist"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/julius_sans_one"
+                android:text="My Wishlist"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+        </LinearLayout>
     </RelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:fontFamily="@font/ubuntu_light"
-        android:padding="3dp"
+        android:layout_marginStart="15dp"
+        android:fontFamily="@font/roboto_light"
+        android:padding="7dp"
         android:text="My Orders"
         android:textColor="@color/black"
         android:textStyle="bold" />
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -62,23 +98,58 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/userlogoutBtn"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="100dp"
+                android:background="?attr/selectableItemBackground"
+                android:drawableTop="@drawable/ic_payment"
+                android:drawablePadding="10dp"
                 android:fontFamily="@font/julius_sans_one"
-                android:gravity="center"
-                android:text="@string/text_logout"
-                android:textColor="@color/ofWhite"
-                android:textSize="14sp"
+                android:text="To Pay"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
-        </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="45dp"
+                android:background="?attr/selectableItemBackground"
+                android:drawableTop="@drawable/ic_card_membership"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/julius_sans_one"
+                android:text="To Ship"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="45dp"
+                android:background="?attr/selectableItemBackground"
+                android:drawableTop="@drawable/ic_shipping"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/julius_sans_one"
+                android:text="To Receive"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:drawableTop="@drawable/ic_rate_review"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/julius_sans_one"
+                android:text="To Review"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

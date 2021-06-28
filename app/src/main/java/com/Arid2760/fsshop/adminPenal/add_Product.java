@@ -49,10 +49,10 @@ public class add_Product extends AppCompatActivity {
                             requestPermissions(permission, permission_Code);
                         } else {
 
-                            pickImageFromGallary();
+                            pickImageFromGallery();
                         }
                     } else {
-                        pickImageFromGallary();
+                        pickImageFromGallery();
                     }
                 } catch (Exception e) {
                     Toast.makeText(add_Product.this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -76,7 +76,7 @@ public class add_Product extends AppCompatActivity {
         });
     }
 
-    private void pickImageFromGallary() {
+    private void pickImageFromGallery() {
 
         Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
         getIntent.setType("image/*");
@@ -95,7 +95,7 @@ public class add_Product extends AppCompatActivity {
         switch (requestCode) {
             case permission_Code: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    pickImageFromGallary();
+                    pickImageFromGallery();
                 } else {
                     Toast.makeText(this, "Permission Denied....!!", Toast.LENGTH_SHORT).show();
                 }

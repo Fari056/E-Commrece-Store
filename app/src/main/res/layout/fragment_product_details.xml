@@ -226,7 +226,7 @@
             android:layout_marginEnd="15dp"
             android:background="@drawable/ic_custom_button"
             android:fontFamily="@font/julius_sans_one"
-            android:text="Add to Cart"
+            android:text="@string/txt_add_to_cart"
             android:textStyle="bold" />
 
         <Button
@@ -235,7 +235,7 @@
             android:layout_height="40dp"
             android:background="@drawable/ic_custom_button"
             android:fontFamily="@font/julius_sans_one"
-            android:text="Buy Now"
+            android:text="@string/txt_buy_now"
             android:textStyle="bold" />
 
     </LinearLayout>

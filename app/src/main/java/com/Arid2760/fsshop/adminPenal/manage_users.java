@@ -1,6 +1,7 @@
 package com.Arid2760.fsshop.adminPenal;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,36 +20,111 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.Arid2760.fsshop.DatabaseHelper;
+import com.Arid2760.fsshop.Home_Page;
 import com.Arid2760.fsshop.R;
+import com.Arid2760.fsshop.adapters.ListViewAdapter;
+import com.Arid2760.fsshop.adapters.customUserListAdapter;
 import com.Arid2760.fsshop.gertterSetter.GetUserData;
+import com.Arid2760.fsshop.login;
 import com.Arid2760.fsshop.updateUser;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class manage_users extends AppCompatActivity {
     ListView listView;
     DatabaseHelper databaseHelper;
     TextView userID;
     ArrayList<HashMap<String, String>> pList;
+    GetUserData data;
+    List<GetUserData> list;
+    private static final String url = "http://192.168.8.100/FSElect/allUsers.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_users);
 
-//        listView;
         init();
-        databaseHelper = new DatabaseHelper(this);
-        pList = databaseHelper.getAllUsers();
+        try {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    if (response.equals("Failed")) {
+                        Toast.makeText(manage_users.this, "Credentials are not valid ", Toast.LENGTH_SHORT).show();
+                    } else {
+                        list = new ArrayList<>();
+                        try {
+                            JSONArray res = new JSONArray(response);
+                            for (int i = 0; i < res.length(); i++) {
+                                JSONObject result = res.getJSONObject(i);
+                                String id = result.getString("id");
+                                String name = result.getString("name");
+                                String email = result.getString("email");
+                                String password = result.getString("password");
+                                String phone = result.getString("phone");
+                                String DOB = result.getString("DOB");
+                                String gender = result.getString("gender");
 
-        if (pList.size() != 0) {
-            ListAdapter adapter = new SimpleAdapter(getApplicationContext(), pList, R.layout.user_view_admin, new String[]
-                    {"userId", "userName", "userEmail", "userDOB", "userPhone"}, new int[]{R.id.userID, R.id.userName1, R.id.userEmail1, R.id.userPassword1, R.id.userPhone1});
-            listView.setAdapter(adapter);
+                                data = new GetUserData();
+                                data.setId(Integer.parseInt(id));
+                                data.setUserName(name);
+                                data.setUserEmail(email);
+                                data.setUserPassword(password);
+                                data.setUserPhone(phone);
+                                data.setUserDOB(DOB);
+                                data.setUserGender(gender);
+                                list.add(data);
+                            }
+                            if (list.size() != 0) {
+                                customUserListAdapter customAdapter = new customUserListAdapter(getApplicationContext(), R.layout.user_view_admin, list);
+                                listView.setAdapter(customAdapter);
+                            }
+
+                        } catch (Exception e) {
+                            Toast.makeText(manage_users.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(manage_users.this, error.toString().trim(), Toast.LENGTH_SHORT).show();
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    return super.getParams();
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+            requestQueue.add(stringRequest);
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
-        registerForContextMenu(listView);
     }
+
+//        databaseHelper = new DatabaseHelper(this);
+//        pList = databaseHelper.getAllUsers();
+//
+//        if (pList.size() != 0) {
+//            ListAdapter adapter = new SimpleAdapter(getApplicationContext(), pList, R.layout.user_view_admin, new String[]
+//                    {"userId", "userName", "userEmail", "userDOB", "userPhone"}, new int[]{R.id.userID, R.id.userName1, R.id.userEmail1, R.id.userPassword1, R.id.userPhone1});
+//            listView.setAdapter(adapter);
+//        }
+//        registerForContextMenu(listView);
 
     void init() {
         listView = (ListView) findViewById(R.id.listview);

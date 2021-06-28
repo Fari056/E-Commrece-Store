@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt"
         android:layout_marginTop="30sp"
-        android:hint="Email"
+        android:hint="@string/email"
         android:textColorHint="@color/black"
         app:endIconMode="clear_text"
         app:hintTextColor="@color/black"
@@ -79,9 +79,10 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="3dp"
         android:button="@drawable/ic_checkbox_selector"
-        android:paddingStart="5dp"
+        android:paddingStart="5sp"
         android:text="@string/remember_me"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        tools:ignore="RtlSymmetry" />
 
     <Button
         android:id="@+id/forgetBtn"

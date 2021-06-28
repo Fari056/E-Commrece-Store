@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="3sp"
             android:fontFamily="sans-serif-smallcaps"
-            android:text="Add"
+            android:text="@string/txt_add"
             android:textColor="@color/black"
             android:textSize="30sp" />
 
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-smallcaps"
-            android:text="Product"
+            android:text="@string/txt_product"
             android:textColor="@color/orange_500"
             android:textSize="30sp" />
     </LinearLayout>
@@ -54,9 +54,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:text="Product Name"
+                android:text="@string/txt_product_name"
                 android:textColor="@color/orange_500"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <EditText
@@ -64,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#ffffff"
-                android:hint=" Enter Name"
+                android:hint="@string/enter_name"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -80,9 +80,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:text="Product Price"
+                android:text="@string/txt_product_price"
                 android:textColor="@color/orange_500"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <EditText
@@ -90,7 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#FFFF"
-                android:hint=" Enter Price"
+                android:hint="@string/enter_price"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -106,9 +106,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:text="Description"
+                android:text="@string/description"
                 android:textColor="@color/orange_500"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <EditText
@@ -116,6 +116,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:maxHeight="100dp"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
                 android:textSize="18sp" />
@@ -130,12 +131,12 @@
             android:background="@drawable/ic_transparent_btn"
             android:gravity="center"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="5dp">
 
             <ImageView
                 android:id="@+id/image"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_baseline_image" />
 
@@ -143,8 +144,8 @@
                 android:id="@+id/imageBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
-                android:text="Add Image" />
+                android:layout_marginStart="50dp"
+                android:text="@string/txt_add_image" />
 
         </LinearLayout>
 
@@ -161,14 +162,14 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="50dp"
                 android:background="@drawable/ic_custom_button"
-                android:text="Add" />
+                android:text="@string/add" />
 
             <Button
                 android:id="@+id/cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/ic_custom_button"
-                android:text="Cancel" />
+                android:text="@string/cancel" />
         </LinearLayout>
     </LinearLayout>
 

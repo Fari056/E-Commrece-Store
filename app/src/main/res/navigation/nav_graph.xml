@@ -44,5 +44,15 @@
         android:name="com.Arid2760.fsshop.fragments.contact_us"
         android:label="ContactUs"
         tools:layout="@layout/fragment_contact_us" />
+    <fragment
+        android:id="@+id/action_userChat"
+        android:name="com.Arid2760.fsshop.fragments.userChat"
+        android:label="userChat"
+        tools:layout="@layout/fragment_user_chat" />
+    <fragment
+        android:id="@+id/action_buyNow"
+        android:name="com.Arid2760.fsshop.fragments.buyNow"
+        android:label="userChat"
+        tools:layout="@layout/fragment_buy_now" />
 
 </navigation>

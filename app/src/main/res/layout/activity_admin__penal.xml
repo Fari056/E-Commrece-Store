@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="3sp"
             android:fontFamily="sans-serif-smallcaps"
-            android:text="Admin"
+            android:text="@string/admin"
             android:textColor="@color/black"
             android:textSize="30sp" />
 
@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-smallcaps"
-            android:text="Penal"
+            android:text="@string/penal"
             android:textColor="@color/orange_500"
             android:textSize="30sp" />
     </LinearLayout>
@@ -44,7 +44,7 @@
 
         android:background="@drawable/ic_transparent_btn"
         android:paddingHorizontal="20dp"
-        android:text="Manage Users" />
+        android:text="@string/manage_users" />
 
     <Button
         android:id="@+id/productBtn"
@@ -53,6 +53,6 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/ic_transparent_btn"
         android:paddingHorizontal="20dp"
-        android:text="Manage Products" />
+        android:text="@string/manage_products" />
 
 </LinearLayout>

@@ -18,9 +18,18 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.Arid2760.fsshop.gertterSetter.GetUserData;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class signUp extends AppCompatActivity {
     ImageButton backBtn;
@@ -31,6 +40,8 @@ public class signUp extends AppCompatActivity {
     RadioGroup Gender;
     RadioButton SelectedGender;
     DatabaseHelper databaseHelper;
+    String name1, email1, phone1, password1, gender1, dob1;
+    private static final String url = "http://192.168.8.100/FSElect/SignUp.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,18 +71,17 @@ public class signUp extends AppCompatActivity {
     }
 
     public void signUp_onClick(View v) {
-        try {
-            DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
-            GetUserData data = new GetUserData();
-            data.setUserName(name.getText().toString());
-            data.setUserEmail(email.getText().toString());
-            data.setUserPassword(password.getText().toString());
-            data.setUserPhone(phone.getText().toString());
-            data.setUserDOB(DOB.getText().toString());
-            int selected = Gender.getCheckedRadioButtonId();
-            SelectedGender = (RadioButton) findViewById(selected);
-            data.setUserGender(SelectedGender.getText().toString());
-            GetUserData temp = databaseHelper.checkUserName(data.getUserEmail());
+//            DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
+//            GetUserData data = new GetUserData();
+        name1 = name.getText().toString().trim();
+        email1 = email.getText().toString().trim();
+        password1 = password.getText().toString().trim();
+        phone1 = phone.getText().toString().trim();
+        dob1 = DOB.getText().toString().trim();
+        int selected = Gender.getCheckedRadioButtonId();
+        SelectedGender = (RadioButton) findViewById(selected);
+        gender1 = SelectedGender.getText().toString();
+            /*GetUserData temp = databaseHelper.checkUserName(data.getUserEmail());
             if (temp == null) {
                 if (name.getText().toString().isEmpty() && email.getText().toString().isEmpty() &&
                         password.getText().toString().isEmpty() && phone.getText().toString().isEmpty()
@@ -94,10 +104,43 @@ public class signUp extends AppCompatActivity {
                     }
                 });
                 builder.show();
-            }
-        } catch (Exception e) {
-            Toast.makeText(signUp.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+            }*/
+
+        if (!name1.equals("") && !email1.equals("") && !password1.equals("") && !phone1.equals("") && !dob1.equals("") && !gender1.equals("")) {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+//                            Toast.makeText(SignUp.this, response, Toast.LENGTH_SHORT).show();
+                    if (response.equals("Success")) {
+                        Toast.makeText(signUp.this, "Successfully Registered", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), login.class));
+                    } else if (response.equals("Failed")) {
+                        Toast.makeText(getApplicationContext(), "Something went Wrong", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> data = new HashMap<>();
+                    data.put("name", name1);
+                    data.put("email", email1);
+                    data.put("password", password1);
+                    data.put("phone", phone1);
+                    data.put("DOB", dob1);
+                    data.put("gender", gender1);
+                    return data;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(signUp.this);
+            requestQueue.add(stringRequest);
+
+        } else
+            Toast.makeText(signUp.this, "Please Fill all the fields", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -131,6 +174,5 @@ public class signUp extends AppCompatActivity {
         password = (TextInputEditText) findViewById(R.id.userPassword);
         phone = (TextInputEditText) findViewById(R.id.userPhone);
         Gender = (RadioGroup) findViewById(R.id.GenderGroup);
-
     }
 }

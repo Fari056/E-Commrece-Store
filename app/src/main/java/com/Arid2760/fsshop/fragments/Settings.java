@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import com.Arid2760.fsshop.DatabaseHelper;
 import com.Arid2760.fsshop.R;
 import com.Arid2760.fsshop.SessionManagement;
 import com.Arid2760.fsshop.gertterSetter.GetUserData;
+import com.Arid2760.fsshop.login;
 import com.Arid2760.fsshop.updateUser;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -31,6 +33,7 @@ import java.util.ArrayList;
 
 public class Settings extends Fragment {
 
+    Button logout;
     private String newId;
     TextView updateProfile, contact_us;
     ImageButton backBtn;
@@ -45,10 +48,9 @@ public class Settings extends Fragment {
         init(root);
         BottomNavigationView navBar = getActivity().findViewById(R.id.bottomNav_view);
         navBar.animate().translationY(200);
-
-        try {
+/*        try {
             helper = new DatabaseHelper(getActivity());
-            data = new GetUserData();
+           data = new GetUserData();
             sessionManagement = new SessionManagement(getActivity());
             ArrayList<String> CurrentUInfo = sessionManagement.get_userInformation();
             newId = CurrentUInfo.get(0);
@@ -73,8 +75,7 @@ public class Settings extends Fragment {
                     Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
-        });
-
+        });*/
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +91,15 @@ public class Settings extends Fragment {
             }
         });
 
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sessionManagement.set_userLoggedOut(false);
+                Intent i = new Intent(getContext(), login.class);
+                startActivity(i);
+            }
+        });
+
         contact_us.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,6 +112,7 @@ public class Settings extends Fragment {
     }
 
     void init(View view) {
+        logout = (Button) view.findViewById(R.id.userlogoutBtn);
         backBtn = view.findViewById(R.id.backBtn);
         updateProfile = (TextView) view.findViewById(R.id.updateProfile);
         contact_us = (TextView) view.findViewById(R.id.contact);
