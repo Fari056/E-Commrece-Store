@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,13 +20,26 @@ import androidx.fragment.app.FragmentTransaction;
 import com.Arid2760.fsshop.DatabaseHelper;
 import com.Arid2760.fsshop.adapters.GridViewAdapter;
 import com.Arid2760.fsshop.R;
+import com.Arid2760.fsshop.adapters.ListViewAdapter;
 import com.Arid2760.fsshop.adapters.SliderAdapter;
+import com.Arid2760.fsshop.adminPenal.manage_Products;
 import com.Arid2760.fsshop.gertterSetter.GetProductData;
 import com.Arid2760.fsshop.gertterSetter.SliderData;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.smarteist.autoimageslider.SliderView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Home extends Fragment {
     ArrayList<SliderData> sliderDataArrayList = new ArrayList<>();
@@ -33,6 +47,9 @@ public class Home extends Fragment {
     Toolbar toolbar;
     DatabaseHelper databaseHelper;
     SliderView sliderView;
+    String url;
+    private static final String allPUrl = "http://192.168.8.107/FSElect/getAllProducts.php";
+    GetProductData data;
 
 
     // Urls of our images.
@@ -81,11 +98,69 @@ public class Home extends Fragment {
 
         // GridView in Home Start
         gridView = (GridView) root.findViewById(R.id.gridView);
-        databaseHelper = new DatabaseHelper(getContext());
-        List<GetProductData> pList = new ArrayList<>();
+        /*databaseHelper = new DatabaseHelper(getContext());
         pList = databaseHelper.getAllProduct();
+        List<GetProductData> pList = new ArrayList<>();
         GridViewAdapter adapter1 = new GridViewAdapter(getActivity(), R.layout.item_card, pList);
-        gridView.setAdapter(adapter1);
+        gridView.setAdapter(adapter1);*/
+
+
+        try {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, allPUrl, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+//                    Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
+                    if (response.equals("Failed")) {
+                        Toast.makeText(getContext(), "Credentials are not valid ", Toast.LENGTH_SHORT).show();
+                    } else {
+                        List<GetProductData> pList = new ArrayList<>();
+                        try {
+                            JSONArray res = new JSONArray(response);
+                            for (int i = 0; i < res.length(); i++) {
+                                JSONObject result = res.getJSONObject(i);
+                                String id = result.getString("id");
+                                String name = result.getString("name");
+                                String price = result.getString("price");
+                                String description = result.getString("description");
+                                String image = result.getString("image");
+                                url = "http://192.168.8.107/FSElect/images/" + image;
+
+
+                                data = new GetProductData();
+                                data.setId(Integer.parseInt(id));
+                                data.setName(name);
+                                data.setPrice(price);
+                                data.setDescription(description);
+                                data.setImageBitmap(url);
+
+                                pList.add(data);
+                            }
+                            if (pList.size() != 0) {
+                                GridViewAdapter adapter1 = new GridViewAdapter(getActivity(), R.layout.item_card, pList);
+                                gridView.setAdapter(adapter1);
+                            }
+
+                        } catch (Exception e) {
+                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    return super.getParams();
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+            requestQueue.add(stringRequest);
+        } catch (Exception e) {
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
 
 //        Fragment newFragment;
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -95,6 +170,7 @@ public class Home extends Fragment {
 
                 GetProductData currentRow = (GetProductData) parent.getItemAtPosition(position);
                 String currentId = String.valueOf(currentRow.getId());
+//                Toast.makeText(getContext(), currentId, Toast.LENGTH_SHORT).show();
 
                 product_details frg = new product_details();
                 transaction.replace(R.id.navHostFragment, frg);

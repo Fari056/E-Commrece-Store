@@ -9,7 +9,7 @@ public class GetProductData {
     private String name;
     private String price;
     private String Description;
-    private Bitmap imageBitmap;
+    private String imageBitmap;
 
 //    public GetProductData(int id, String name, String price, String description, Bitmap imageBitmap) {
 //        this.id = id;
@@ -51,11 +51,11 @@ public class GetProductData {
         Description = description;
     }
 
-    public Bitmap getImageBitmap() {
+    public String getImageBitmap() {
         return imageBitmap;
     }
 
-    public void setImageBitmap(Bitmap imageBitmap) {
+    public void setImageBitmap(String imageBitmap) {
         this.imageBitmap = imageBitmap;
     }
 

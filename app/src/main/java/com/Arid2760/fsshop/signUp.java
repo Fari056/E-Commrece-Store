@@ -41,7 +41,7 @@ public class signUp extends AppCompatActivity {
     RadioButton SelectedGender;
     DatabaseHelper databaseHelper;
     String name1, email1, phone1, password1, gender1, dob1;
-    private static final String url = "http://192.168.8.100/FSElect/SignUp.php";
+    private static final String url = "http://192.168.8.107/FSElect/SignUp.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +81,7 @@ public class signUp extends AppCompatActivity {
         int selected = Gender.getCheckedRadioButtonId();
         SelectedGender = (RadioButton) findViewById(selected);
         gender1 = SelectedGender.getText().toString();
+
             /*GetUserData temp = databaseHelper.checkUserName(data.getUserEmail());
             if (temp == null) {
                 if (name.getText().toString().isEmpty() && email.getText().toString().isEmpty() &&
@@ -141,7 +142,6 @@ public class signUp extends AppCompatActivity {
 
         } else
             Toast.makeText(signUp.this, "Please Fill all the fields", Toast.LENGTH_SHORT).show();
-
     }
 
     void forward() {

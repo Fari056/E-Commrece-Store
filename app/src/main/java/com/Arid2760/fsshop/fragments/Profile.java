@@ -49,7 +49,7 @@ public class Profile extends Fragment {
     //    DatabaseHelper helper;
     GetUserData data;
     String id;
-    private static final String url = "http://192.168.8.100/FSElect/rowdata.php";
+    private static final String url = "http://192.168.8.107/FSElect/rowdata.php";
 
     public Profile() {
         setHasOptionsMenu(true);

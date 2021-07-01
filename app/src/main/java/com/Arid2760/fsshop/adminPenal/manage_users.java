@@ -50,7 +50,7 @@ public class manage_users extends AppCompatActivity {
     ArrayList<HashMap<String, String>> pList;
     GetUserData data;
     List<GetUserData> list;
-    private static final String url = "http://192.168.8.100/FSElect/allUsers.php";
+    private static final String url = "http://192.168.8.107/FSElect/allUsers.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

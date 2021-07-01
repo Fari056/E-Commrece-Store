@@ -31,10 +31,10 @@ import java.util.List;
 import java.util.Map;
 
 public class Chats extends Fragment {
-    ListView listView1;
+    ListView listView1, listView2;
     GetUserData data;
     List<GetUserData> list;
-    private static final String url = "http://192.168.8.100/FSElect/allUsers.php";
+    private static final String url = "http://192.168.8.107/FSElect/allUsers.php";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,6 +44,7 @@ public class Chats extends Fragment {
         init(v);
         listView1.setDivider(null);
         listView1.setDividerHeight(0);
+
 
         try {
             StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {

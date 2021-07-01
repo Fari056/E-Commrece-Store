@@ -94,6 +94,7 @@ public class Settings extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                sessionManagement = new SessionManagement(getContext());
                 sessionManagement.set_userLoggedOut(false);
                 Intent i = new Intent(getContext(), login.class);
                 startActivity(i);

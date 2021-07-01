@@ -1,6 +1,9 @@
 package com.Arid2760.fsshop.fragments;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,12 +20,27 @@ import android.widget.Toast;
 
 import com.Arid2760.fsshop.DatabaseHelper;
 import com.Arid2760.fsshop.R;
+import com.Arid2760.fsshop.adapters.GridViewAdapter;
 import com.Arid2760.fsshop.gertterSetter.GetProductData;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -36,6 +54,11 @@ public class product_details extends Fragment {
     String itemId;
     String totalPrice;
     private String id;
+    String priceString;
+    String pName;
+    String pImgAddress;
+
+    private static final String url = "http://192.168.8.107/FSElect/getProduct.php";
 
 
     @Override
@@ -47,12 +70,13 @@ public class product_details extends Fragment {
         init(root);
         BottomNavigationView navBar = getActivity().findViewById(R.id.bottomNav_view);
         navBar.animate().translationY(200);
-
-        helper = new DatabaseHelper(getContext());
         BackToHome.bringToFront();
-//        GetProductData d = new GetProductData();
+
         id = getArguments().getString("CPid");
-//        Toast.makeText(getContext(), id, Toast.LENGTH_SHORT).show();
+
+
+/*        helper = new DatabaseHelper(getContext());
+        Toast.makeText(getContext(), id, Toast.LENGTH_SHORT).show();
         GetProductData data1 = new GetProductData();
         data1 = helper.getSelectedProduct(id);
 
@@ -60,7 +84,58 @@ public class product_details extends Fragment {
         prodName.setText(data1.getName());
         prodPrice.setText(data1.getPrice());
         prodDescription.setText(data1.getDescription());
-        prodImage.setImageBitmap(data1.getImageBitmap());
+        prodImage.setImageBitmap(data1.getImageBitmap());*/
+
+        GetProductData d = new GetProductData();
+        try {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject result = new JSONObject(response);
+                        for (int i = 0; i <= result.length(); i++) {
+                            String id = result.getString("id");
+                            String name = result.getString("name");
+                            String price = result.getString("price");
+                            String description = result.getString("description");
+                            String imgUrl = result.getString("image");
+                            String imageAddress = "http://192.168.8.107/FSElect/images/" + imgUrl;
+
+                            pName = name;
+                            pImgAddress = imageAddress;
+
+                            total.setText(price);
+                            prodName.setText(name);
+                            prodPrice.setText(price);
+                            prodDescription.setText(description);
+                            imageLoadTask obj = new imageLoadTask(imageAddress, prodImage);
+                            obj.execute();
+                            priceString = price;
+                        }
+
+                    } catch (Exception e) {
+                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> data = new HashMap<>();
+                    data.put("id", id);
+                    return data;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+            requestQueue.add(stringRequest);
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         BackToHome.setOnClickListener(new View.OnClickListener() {
@@ -77,14 +152,14 @@ public class product_details extends Fragment {
 
         //Total price Counter Start
 
-        String priceString = prodPrice.getText().toString();
-        int price = Integer.parseInt(priceString.substring(3).trim());
-        total.setText(prodPrice.getText().toString());
+
         final TextView count = (TextView) root.findViewById(R.id.count);
-        totalPrice = String.valueOf(price);
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int price = Integer.parseInt(priceString.trim());
+                total.setText(prodPrice.getText().toString());
+                totalPrice = String.valueOf(price);
                 count1++;
                 count.setText(String.valueOf(count1));
                 int totalP = price * count1;
@@ -96,6 +171,7 @@ public class product_details extends Fragment {
         minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int price = Integer.parseInt(priceString.trim());
                 if (count1 <= 1) {
                     Toast.makeText(getContext(), "Quantity cannot be less then 1", Toast.LENGTH_SHORT).show();
 
@@ -124,7 +200,8 @@ public class product_details extends Fragment {
                 buyNow buyNow = new buyNow();
                 transaction.replace(R.id.navHostFragment, buyNow);
                 Bundle bundle = new Bundle();
-                bundle.putString("Cid", id);
+                bundle.putString("name", pName);
+                bundle.putString("img", pImgAddress);
                 bundle.putString("Price", totalPrice);
                 buyNow.setArguments(bundle);
                 transaction.addToBackStack(null);
@@ -148,5 +225,35 @@ public class product_details extends Fragment {
         minus = (Button) view.findViewById(R.id.minus);
         plus = (Button) view.findViewById(R.id.plus);
         total = (TextView) view.findViewById(R.id.totalPrice);
+    }
+
+    class imageLoadTask extends AsyncTask<Void, Void, Bitmap> {
+        private String url1;
+        private ImageView imageView1;
+
+        public imageLoadTask(String imageBitmap, ImageView tt3) {
+            this.url1 = imageBitmap;
+            this.imageView1 = tt3;
+        }
+
+        @Override
+        protected Bitmap doInBackground(Void... voids) {
+            try {
+                URL connection = new URL(url1);
+                InputStream inputStream = connection.openStream();
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                Bitmap newbit = Bitmap.createScaledBitmap(bitmap, 400, 400, true);
+                return newbit;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            super.onPostExecute(bitmap);
+            imageView1.setImageBitmap(bitmap);
+        }
     }
 }

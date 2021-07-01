@@ -41,7 +41,7 @@ public class login extends AppCompatActivity {
     private String email1, password1;
     GetUserData data;
 
-    private static final String url = "http://192.168.8.100/FSElect/login.php";
+    private static final String url = "http://192.168.8.107/FSElect/login.php";
 
 
     @Override

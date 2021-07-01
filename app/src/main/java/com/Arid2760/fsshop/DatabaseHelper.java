@@ -204,9 +204,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         boolean result = true;
         try {
             SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-            Bitmap bitmap = data.getImageBitmap();
+//            Bitmap bitmap = data.getImageBitmap();
             BOS = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, BOS);
+//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, BOS);
             imageInByte = BOS.toByteArray();
 
             ContentValues contentValues = new ContentValues();
@@ -239,7 +239,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 data.setDescription(cursor.getString(3));
                 byte[] imageByte = cursor.getBlob(4);
                 Bitmap image = BitmapFactory.decodeByteArray(imageByte, 0, imageByte.length);
-                data.setImageBitmap(image);
+//                data.setImageBitmap(image);
                 wordList.add(data);
             } while (cursor.moveToNext());
         }
@@ -320,7 +320,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 data.setDescription(cursor.getString(3));
                 byte[] imageByte = cursor.getBlob(4);
                 Bitmap image = BitmapFactory.decodeByteArray(imageByte, 0, imageByte.length);
-                data.setImageBitmap(image);
+//                data.setImageBitmap(image);
                 wordList.add(data);
             } while (cursor.moveToNext());
         }
@@ -345,7 +345,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 data.setDescription(cursor.getString(3));
                 byte[] imageByte = cursor.getBlob(4);
                 Bitmap image = BitmapFactory.decodeByteArray(imageByte, 0, imageByte.length);
-                data.setImageBitmap(image);
+//                data.setImageBitmap(image);
 //                wordList.add(data);
             } while (cursor.moveToNext());
         }

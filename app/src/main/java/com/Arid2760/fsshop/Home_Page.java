@@ -29,6 +29,7 @@ public class Home_Page extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_home__page);
         init();
 //        setSupportActionBar(toolbar);
@@ -48,7 +49,6 @@ public class Home_Page extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
         //Bottom Navigation Bar ends
-
     }
 
     void init() {

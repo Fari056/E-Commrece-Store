@@ -65,7 +65,29 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/relative2"
+        android:layout_below="@+id/relative">
+
+        <ListView
+            android:id="@+id/listChat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ListView
+            android:id="@+id/listChat1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+
     <RelativeLayout
+        android:id="@+id/relative2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
@@ -75,14 +97,14 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@+id/msgBtn"
+            android:layout_toLeftOf="@+id/msgBtn1"
             android:background="#eee"
             android:hint="@string/hint_type_a_message"
             android:paddingStart="15dp"
             android:textSize="16sp" />
 
         <Button
-            android:id="@+id/msgBtn"
+            android:id="@+id/msgBtn1"
             android:layout_width="60dp"
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"

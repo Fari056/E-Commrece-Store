@@ -1,5 +1,8 @@
 package com.Arid2760.fsshop.fragments;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -26,6 +29,9 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +44,7 @@ public class buyNow extends Fragment {
     SessionManagement sessionManagement;
     DatabaseHelper helper;
 
-    private static final String url = "http://192.168.8.100/FSElect/rowdata.php";
+    private static final String url = "http://192.168.8.107/FSElect/rowdata.php";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,15 +56,17 @@ public class buyNow extends Fragment {
 
         helper = new DatabaseHelper(getContext());
         String price = getArguments().getString("Price");
+        String name = getArguments().getString("name");
+        String img = getArguments().getString("img");
         totalPrice1.setText(price);
-        String Cid = getArguments().getString("Cid");
-        GetProductData data1 = new GetProductData();
-        data1 = helper.getSelectedProduct(Cid);
-        productName1.setText(data1.getName());
-        productImg.setImageBitmap(data1.getImageBitmap());
+        productName1.setText(name);
+        imageLoadTask obj = new imageLoadTask(img, productImg);
+        obj.execute();
+
+//        productImg.setImageBitmap(data1.getImageBitmap());
 
 
-        Toast.makeText(getContext(), Cid + "  " + price, Toast.LENGTH_LONG).show();
+//        Toast.makeText(getContext(), Cid + "  " + price, Toast.LENGTH_LONG).show();
 
         sessionManagement = new SessionManagement(getActivity());
         ArrayList<String> CurrentUInfo = sessionManagement.get_userInformation();
@@ -122,5 +130,34 @@ public class buyNow extends Fragment {
         totalPrice1 = v.findViewById(R.id.productPrice1);
         productName1 = v.findViewById(R.id.productName12);
         backBtn = v.findViewById(R.id.backBtn);
+    }
+    class imageLoadTask extends AsyncTask<Void, Void, Bitmap> {
+        private String url1;
+        private ImageView imageView1;
+
+        public imageLoadTask(String imageBitmap, ImageView tt3) {
+            this.url1 = imageBitmap;
+            this.imageView1 = tt3;
+        }
+
+        @Override
+        protected Bitmap doInBackground(Void... voids) {
+            try {
+                URL connection = new URL(url1);
+                InputStream inputStream = connection.openStream();
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                Bitmap newbit = Bitmap.createScaledBitmap(bitmap, 400, 400, true);
+                return newbit;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            super.onPostExecute(bitmap);
+            imageView1.setImageBitmap(bitmap);
+        }
     }
 }
